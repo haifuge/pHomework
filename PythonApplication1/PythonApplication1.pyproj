@@ -23,6 +23,12 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="CV\ApplyNoise.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CV\color.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DecisionTree.py">
       <SubType>Code</SubType>
     </Compile>
@@ -36,6 +42,17 @@
     <Compile Include="topoSort.py">
       <SubType>Code</SubType>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CV\" />
+    <Folder Include="CV\images\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="CV\images\back.jpg" />
+    <Content Include="CV\images\back2.jpg" />
+    <Content Include="CV\images\cat.jpg" />
+    <Content Include="CV\images\cat.png" />
+    <Content Include="CV\images\p1.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

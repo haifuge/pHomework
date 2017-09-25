@@ -69,6 +69,8 @@ def testGarwick():
     Garwick(stacks, mainStack)
 
 def Garwick(stacks, mainStack):
+    overflows=0
+    moves=0
     rou=0.5
     while True:
         n=input('input stack number and a letter: ')
@@ -94,6 +96,7 @@ def Garwick(stacks, mainStack):
                     mainStack[s.Top]=c
                 s.used=s.used+n
             else:
+                overflows=overflows+1
                 totalIncrease=0
                 totalUsed=0
                 remain=0
@@ -140,9 +143,10 @@ def Garwick(stacks, mainStack):
                     s=stacks[i]
                     # move left
                     if s.Base > s.NewBase:
-                        for j in range(s.used-1, -1, -1):
+                        for j in range(s.used):#(s.used-1, -1, -1):
                             mainStack[s.NewBase+j]=mainStack[s.Base+j]
                             mainStack[s.Base+j] = '*'
+                            moves=moves+1
                         s.Base=s.NewBase
                         s.Top=s.Base+s.used-1
                     elif s.Base<s.NewBase:
@@ -164,6 +168,7 @@ def Garwick(stacks, mainStack):
                             for l in range(s.used-1, -1, -1):
                                 mainStack[s.NewBase+l]=mainStack[s.Base+l]
                                 mainStack[s.Base+l]='*'
+                                moves=moves+1
                             s.Base=s.NewBase
                             s.Top=s.Base+s.used-1
                         i=k
@@ -177,6 +182,7 @@ def Garwick(stacks, mainStack):
             print(mainStack)
             for s in stacks:
                 print('base: '+str(s.Base)+', top: '+str(s.Top))
+            print('overflow: '+str(overflows)+', move:'+str(moves))
 
 def testModifiedGarwick():
     capacity=input('Input capacity: ')
@@ -191,32 +197,42 @@ def testModifiedGarwick():
     for i in range(n-1):
         base=i*volume
         inputs=input('Initialize '+ str(i)+ ' stack: ')
-        inputs=inputs.strip().split(' ')
+        ssize=0
+        if inputs=='':
+            ssize=0
+        else:
+            inputs=inputs.strip().split(' ')
+            ssize=len(inputs)
         if i%2==0:
-            s=Stack(base, len(inputs))
-            for j in range(len(inputs)):
+            s=Stack(base, ssize)
+            for j in range(ssize):
                 p=j+s.Base
                 mainStack[p]=inputs[j]
             stacks.append(s)
         else:
             base=base+volume-1
-            s=MStack(base, len(inputs))
-            for j in range(len(inputs)):
+            s=MStack(base, ssize)
+            for j in range(ssize):
                 p=s.Base-j
                 mainStack[p]=inputs[j]
             stacks.append(s)
     base=(n-1)*volume
     inputs=input('Initialize '+ str(n-1)+ ' stack: ')
-    inputs=inputs.strip().split(' ')
+    ssize=0
+    if inputs=='':
+        ssize=0
+    else:
+        inputs=inputs.strip().split(' ')
+        ssize=len(inputs)
     if (n-1)%2==0:
-        s=Stack(base, len(inputs))
-        for j in range(len(inputs)):
+        s=Stack(base, ssize)
+        for j in range(ssize):
                 p=j+s.Base
                 mainStack[p]=inputs[j]
         stacks.append(s)
     else:
-        s=MStack(len(mainStack)-1, len(inputs))
-        for j in range(len(inputs)):
+        s=MStack(len(mainStack)-1, ssize)
+        for j in range(ssize):
             p=s.Base-j
             mainStack[p]=inputs[j]
         stacks.append(s)
@@ -227,6 +243,8 @@ def testModifiedGarwick():
     ModifiedGarwick(stacks, mainStack)
 
 def ModifiedGarwick(stacks, mainStack):
+    overflows=0
+    moves=0
     rou=0.5
     while True:
         n=input('input stack number and a letter: ')
@@ -241,7 +259,7 @@ def ModifiedGarwick(stacks, mainStack):
         else:
             s=stacks[p]
             nexts=0
-            inserted=0
+            inserted=False
             if p%2==0:
                 if p==len(stacks)-1:
                     nexts=len(mainStack)
@@ -252,7 +270,7 @@ def ModifiedGarwick(stacks, mainStack):
                         s.Top=s.Top+1
                         mainStack[s.Top]=c
                     s.used=s.used+n
-                    inserted=1
+                    inserted=True
             else:
                 nexts=stacks[p-1].Top
                 if s.Top-n>nexts:
@@ -260,9 +278,10 @@ def ModifiedGarwick(stacks, mainStack):
                         s.Top=s.Top-1
                         mainStack[s.Top]=c
                     s.used=s.used+n
-                    inserted=1
+                    inserted=True
             # overflow
-            if inserted==0:
+            if not inserted:
+                overflows=overflows+1
                 totalIncrease=0
                 totalUsed=0
                 remain=0
@@ -306,6 +325,7 @@ def ModifiedGarwick(stacks, mainStack):
                         if p==i:
                             s.NewBase=s.NewBase+n
                         nextPosition=s.NewBase+1
+                        s.top=s.NewBase-s.used+1
                 if len(stacks)%2==1:
                     stacks[-1].NewBase=nextPosition
                 else:
@@ -318,11 +338,20 @@ def ModifiedGarwick(stacks, mainStack):
                     s=stacks[i]
                     # move left
                     if s.Base > s.NewBase:
-                        for j in range(s.used-1, -1, -1):
-                            mainStack[s.NewBase+j]=mainStack[s.Base+j]
-                            mainStack[s.Base+j] = '*'
-                        s.Base=s.NewBase
-                        s.Top=s.Base+s.used-1
+                        if i%2==0:
+                            for j in range(s.used):
+                                mainStack[s.NewBase+j]=mainStack[s.Base+j]
+                                mainStack[s.Base+j] = '*'
+                                moves=moves+1
+                            s.Base=s.NewBase
+                            s.Top=s.Base+s.used-1
+                        else:
+                            for j in range(s.used-1, -1, -1):
+                                mainStack[s.NewBase-j]=mainStack[s.Base-j]
+                                mainStack[s.Base-j] = '*'
+                                moves=moves+1
+                            s.Base=s.NewBase
+                            s.Top=s.Base-s.used+1
                     elif s.Base<s.NewBase:
                         # move right
                         # find k that move left
@@ -347,17 +376,20 @@ def ModifiedGarwick(stacks, mainStack):
                                 for l in range(s.used-1, -1, -1):
                                     mainStack[s.NewBase+l]=mainStack[s.Base+l]
                                     mainStack[s.Base+l]='*'
+                                    moves=moves+1
                                 s.Base=s.NewBase
                                 s.Top=s.Base+s.used-1
                             else:
                                 for l in range(s.used):
                                     mainStack[s.NewBase-l]=mainStack[s.Base-l]
                                     mainStack[s.Base-l]='*'
+                                    moves=moves+1
                                 s.Base=s.NewBase
                                 s.Top=s.Base-s.used+1
                         i=k
                     i=i+1
                 s=stacks[p]
+                # add new c to stack
                 if p%2==0:
                     for i in range(n):
                         s.Top=s.Top+1
@@ -371,3 +403,5 @@ def ModifiedGarwick(stacks, mainStack):
             print(mainStack)
             for s in stacks:
                 print('base: '+str(s.Base)+', top: '+str(s.Top))
+            print('overflow: '+str(overflows)+', move:'+str(moves))
+    
