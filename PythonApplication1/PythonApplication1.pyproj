@@ -42,6 +42,9 @@
     <Compile Include="topoSort.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="traverseTree.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CV\" />
