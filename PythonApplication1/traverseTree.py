@@ -85,21 +85,7 @@ def robsonTraversal(t):
     avail=None
     p=t
     while p!=None:
-        print(p.info)
-        if predp.info!='-1':
-            if predp!=None:
-                print('predp: '+predp.info, end=', ')
-            if top!=None:
-                print('top: '+top.info, end=', ')
-            if stack!=None:
-                print('stack: '+stack.info, end=', ')
-                if stack.rt!=None:
-                    print('rt of stack: '+stack.rt.info, end=', ')
-                if stack.lt!=None:
-                    print('lt of stack: '+stack.lt.info, end=', ')
-                    if stack.lt.rt!=None:
-                        print('rt of lt of stack: '+stack.lt.rt.info, end=', ')
-            print()
+        printPointInfo(p, stack, predp, top)
         if p.lt!=None:
             temp=p.lt
             p.lt=predp
@@ -111,39 +97,19 @@ def robsonTraversal(t):
             predp=p
             p=temp
         else:
-            if stack==None:
-                stack=p
-            elif stack.rt==None:
-                temp=stack
-                stack=p
-                stack.lt=temp.lt
-                temp.lt=None
-            elif stack.rt!=None:
-                temp=stack
-                stack=p
-                stack.lt=temp
+            avail=p
             while predp.rt==None or predp.lt==None or predp==top:
                 # track back from right child
                 if predp==top:
                     top=None
-                    if stack!=None and stack.rt!=None:
+                    if stack!=None:
                         top=stack.rt
                         stack.rt=None
-                    # right leaf node
-                    if p.lt==None and p.rt==None:
-                        temp=stack
-                        stack=p
-                        stack.rt=temp.rt
-                        temp.rt=None
-                        if temp.lt!=None:
-                            stack.lt=temp.lt
-                            temp.lt=None
-                    temp=predp.lt
-                    predp.lt=predp.rt
+                        stack=stack.lt
+                    temp=predp.rt
                     predp.rt=p
                     p=predp
-                    predp=temp
-                    
+                    predp=temp                    
                 # track back by left child
                 elif predp.lt!=None:
                     temp=predp.lt
@@ -162,12 +128,39 @@ def robsonTraversal(t):
             # find predp has both left child and right child
             # since top is None, predp must be tracked back from left child
             if top!=None:
-                stack.rt=top
-                #avail=top
-                #stack.rt=avail
-                #avail=None
+                avail.rt=top
+                avail.lt=stack
+                stack=avail
             top=predp
-            p=predp.rt
+            temp=predp.rt
+            predp=top.lt
+            top.lt=p
+            top.rt=predp
+            predp=top
+            p=temp
+            
+
+def printPointInfo(p, stack, predp, top):
+    print('current node: '+p.info, end='. ')
+    print('predp node: '+predp.info, end='. ')
+    if top!=None:
+        print('top: '+top.info, end='. ')
+    else:
+        print('top: None', end='. ')
+    if p.lt!=None:
+        print('left child: '+p.lt.info, end='. ')
+    else:
+        print('left child: None', end='. ')
+    if p.rt!=None:
+        print('right child: '+p.rt.info, end='. ')
+    else:
+        print('right child: None', end='. ')
+    s=stack
+    while s!=None:
+        print('stack: '+s.info+', rt of stack: '+s.rt.info, end=', ')
+        s=s.lt
+    print()
+    
 
 
 def main():

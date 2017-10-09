@@ -10,8 +10,8 @@
 #import mss4
 #mss4.runmss4()
 
-import DecisionTree
-DecisionTree.makingTree()
+#import DecisionTree
+#DecisionTree.makingTree()
 
 #import Garwick
 #Garwick.testModifiedGarwick()
