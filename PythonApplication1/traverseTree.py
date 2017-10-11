@@ -41,8 +41,42 @@ def create():
                 break
     return root
     
-def modifiedRobson(t):
-    pass
+def preorderCreate():
+    f=open('robsontreedata1')
+    lines=f.readlines()
+    if lines[0][0]=='0':
+        return None
+    else:
+        k=0
+        root=node(str(k))
+        l=0
+        s=[]
+        p=root
+        while p!=None or len(s)>0:
+            if p!=None:
+                p.info=str(k)
+                k+=1
+                s.append(p)
+                l+=1
+                if(lines[l][0]=='1'):
+                    p.lt=node('')
+                if lines[l][2]=='1':
+                    p.rt=node('')
+                if p.lt!=None:
+                    p=p.lt
+                else:
+                    p=p.rt
+            else:
+                while True:
+                    q=s.pop()
+                    if len(s)>0:
+                        rtptr=s[-1].rt
+                    else:
+                        rtptr=None
+                    if len(s)==0 or q!=rtptr:
+                        break
+                p=rtptr
+    return root
 
 def preTraverseTreeRecuresion(t):
     if t==None:
@@ -59,7 +93,16 @@ def preorderTraversal(t):
     s=[]
     while p!=None or len(s)>0:
         if p!=None:
-            print(p.info)
+            print('current point: '+p.info, end =', ')
+            if p.lt!=None:
+                print('left child: '+p.lt.info, end='. ')
+            else:
+                print('left child: None', end='. ')
+            if p.rt!=None:
+                print('right child: '+p.rt.info, end='. ')
+            else:
+                print('right child: None', end='. ')
+            print()
             s.insert(0, p)
             if p.lt!=None:
                 p=p.lt
@@ -124,6 +167,7 @@ def robsonTraversal(t):
                     predp=temp
                 else:
                     # track back to node(-1),  
+                    preorderTraversal(t)
                     return
             # find predp has both left child and right child
             # since top is None, predp must be tracked back from left child
@@ -164,7 +208,8 @@ def printPointInfo(p, stack, predp, top):
 
 
 def main():
-    t=create()
+    #t=create()
+    t=preorderCreate()
     #preorderTraversal(t)
     robsonTraversal(t)
 
