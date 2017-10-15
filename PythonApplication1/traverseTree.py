@@ -42,7 +42,7 @@ def create():
     return root
     
 def preorderCreate():
-    f=open('robsontreedata1')
+    f=open('robsontreedata')
     lines=f.readlines()
     if lines[0][0]=='0':
         return None
@@ -210,8 +210,10 @@ def printPointInfo(p, stack, predp, top):
 def main():
     #t=create()
     t=preorderCreate()
+    preorderTraversal(t)
     #preorderTraversal(t)
     robsonTraversal(t)
+    preorderTraversal(t)
 
 if __name__=='__main__':
     main()
