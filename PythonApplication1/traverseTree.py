@@ -148,7 +148,9 @@ def robsonTraversal(t):
                     if stack!=None:
                         top=stack.rt
                         stack.rt=None
+                        temp=stack
                         stack=stack.lt
+                        temp.lt=None
                     temp=predp.rt
                     predp.rt=p
                     p=predp
@@ -203,6 +205,24 @@ def printPointInfo(p, stack, predp, top):
     while s!=None:
         print('stack: '+s.info+', rt of stack: '+s.rt.info, end=', ')
         s=s.lt
+    print()
+    s=stack
+    p=predp
+    q=top
+    print('path back: ', end='');
+    while p.info!='-1':
+        print(p.info, end='->')
+        if p==q:
+            p=p.rt
+            if s!=None:
+                q=s.rt
+                s=s.lt
+        else:
+            if p.lt!=None:
+                p=p.lt
+            elif p.rt!=None:
+                p=p.rt
+
     print()
     
 
