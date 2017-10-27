@@ -184,7 +184,6 @@ def robsonTraversal(t):
             top.rt=predp
             predp=top
             p=temp
-            
 
 def printPointInfo(p, stack, predp, top):
     print('current node: '+p.info, end='. ')
@@ -211,7 +210,15 @@ def printPointInfo(p, stack, predp, top):
     q=top
     print('path back: ', end='');
     while p.info!='-1':
-        print(p.info, end='->')
+        if p.lt==None:
+            ln='None'
+        else:
+            ln=p.lt.info
+        if p.rt==None:
+            rn='None'
+        else:
+            rn=p.rt.info
+        print(p.info+', ln:'+ln+', rn:'+rn, end='->')
         if p==q:
             p=p.rt
             if s!=None:
@@ -225,16 +232,102 @@ def printPointInfo(p, stack, predp, top):
 
     print()
     
+def createStack(t):
+    p=t
+    arr=[]
+    s=[]
+    while p!=None or len(s)>0:
+        if p!=None:
+            s.append(p)
+            if p.lt!=None:
+                p=p.lt
+            else:
+                p=p.rt
+        else:
+            while True:
+                p=s.pop()
+                arr.append(p)
+                if len(s)>0:
+                    if p==s[-1].lt:
+                        arr.append(s[-1])
+                    rtptr=s[-1].rt
+                else:
+                    rtptr=None
+                if len(s)==0 or p!=rtptr:
+                    break
+            p=rtptr
+    for i in arr:
+        print(i.info, end=',')
 
+
+
+
+def ascii_deletion_distance(str1, str2):
+    deletion=0
+    s1=0
+    s2=0
+    maxMatch=0
+    for i in range(len(str1)):
+        maxs=0
+        for j in range(len(str2)):
+            if str1[i]==str2[j]:
+                maxs=maxs+ord(str1[i])
+                i=i+1
+                j=j+1
+            else:
+                if maxs>maxMatch:
+                    maxMatch=maxs
+        if maxs>maxMatch:
+            maxMatch=maxs
+    total=0
+    for s in str1:
+        total=total+ord(s)
+    for s in str2:
+        total=total+ord(s)
+    print(total-2*maxMatch)
+    return total-2*maxMatch
+
+def almost_palindromes(str):
+    ps=0
+    l=len(str)
+    print(l)
+    for i in range(l):
+        print(i)
+        if str[i]!=str[l-i]:
+            ps=ps+1
+    return ps
+
+def maxlength(arr, s, maxl):
+    if len(arr)==1:
+        return 1
+    elif len(arr)==s+2:
+        if arr[s]<arr[s+1]:
+            return 2
+        else:
+            return 1
+    else:
+        if arr[s]<arr[s+1]:
+            maxl=maxl+1
+            maxl=max(maxlength(arr, s+1, maxl), maxl)
+        else:
+            maxl=max(maxlength(arr, s+1, 1), maxl)
+    return maxl
 
 def main():
-    #t=create()
-    t=preorderCreate()
-    preorderTraversal(t)
+    t=create()
+    createStack(t)
+    #t=preorderCreate()
     #preorderTraversal(t)
-    robsonTraversal(t)
-    preorderTraversal(t)
-
+    ##preorderTraversal(t)
+    #robsonTraversal(t)
+    #preorderTraversal(t)
+    #ascii_deletion_distance('asldb','casdb')
+    #almost_palindromes('xof')
+    #arr=[10, 12, 9, 7, 8, 10, 1, 15]
+    #s=0
+    #maxlen=1
+    #res=maxlength(arr, 0, maxlen)
+    #print(res)
 if __name__=='__main__':
     main()
 

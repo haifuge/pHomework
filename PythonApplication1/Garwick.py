@@ -12,9 +12,6 @@ class Stack:
         self.Top=self.OldTop
         self.used=n
     def increase(self):
-        a=self.Top-self.OldTop
-        if a==-1:
-            a=-1
         return self.Top-self.OldTop
 class MStack:
     Base=0
@@ -137,7 +134,7 @@ def Garwick(stacks, mainStack):
                         nextPosition=nextPosition+int(alc)+s.used
                 stacks[-1].NewBase=nextPosition
 
-                # movev stacks
+                # movev stacks from second stack
                 i=1
                 while i<len(stacks):
                     s=stacks[i]

@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>def20398-ba25-41a4-8f13-117b1c05000c</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>traverseTree.py</StartupFile>
+    <StartupFile>tensorflow.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -13,6 +13,8 @@
     <RootNamespace>PythonApplication1</RootNamespace>
     <LaunchProvider>Standard Python launcher</LaunchProvider>
     <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
+    <InterpreterId>
+    </InterpreterId>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -39,6 +41,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PythonApplication1.py" />
+    <Compile Include="tensorflow.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="topoSort.py">
       <SubType>Code</SubType>
     </Compile>
