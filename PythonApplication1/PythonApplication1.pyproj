@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>def20398-ba25-41a4-8f13-117b1c05000c</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>tfTutorial.py</StartupFile>
+    <StartupFile>parenthesisBinaryTree.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -38,6 +38,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="mss4.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="parenthesisBinaryTree.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PythonApplication1.py" />
