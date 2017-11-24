@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>def20398-ba25-41a4-8f13-117b1c05000c</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>parenthesisBinaryTree.py</StartupFile>
+    <StartupFile>assignment6.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -25,6 +25,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="assignment6.py" />
     <Compile Include="CV\ApplyNoise.py">
       <SubType>Code</SubType>
     </Compile>
@@ -32,6 +33,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DecisionTree.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="downloadpic.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Garwick.py">
@@ -44,6 +48,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PythonApplication1.py" />
+    <Compile Include="siamese.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="tfTutorial.py">
       <SubType>Code</SubType>
     </Compile>
@@ -51,6 +58,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="traverseTree.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="twoLayerNN.py">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

@@ -143,10 +143,82 @@ def main():
             print('the '+str(k)+': ')
             printLR(t, n)
     print('total '+str(k)+' strs')
+
+
+def generateTree(n):
+    L=[0]*(n+1)
+    R=[0]*(n+1)
+    for i in range(1, n):
+        R[i]=i+1
+    return L, R
+
+def nextTree(L, R):
+    rightMost=0
+    parent=0
+    for i in range(1, len(R)):
+        if R[i]!=0 and R[R[i]]==0:
+            if rightMost<R[i]:
+                rightMost=R[i]
+                parent=i
+
+    if parent==0:
+        return False
+    i=parent
+    if L[i]==0:
+        L[i]=R[i]
+        temp=R[i]
+        R[i]=0
+        if L[temp]!=0:
+            j=1
+            while R[j]!=0:
+                j=R[j]
+            R[j]=L[temp]
+            L[temp]=0
+            temp=R[j]
+            while L[temp]!=0:
+                R[temp]=L[temp]
+                L[temp]=0
+                temp=R[temp]
+    else:
+        temp=L[i]
+        while R[temp]!=0:
+            temp=R[temp]
+        R[temp]=R[i]
+        temp=R[i]
+        R[i]=0
+        if L[temp]!=0:
+            j=1
+            while R[j]!=0:
+                j=R[j]
+            R[j]=L[temp]
+            L[temp]=0
+            temp=R[j]
+            while L[temp]!=0:
+                R[temp]=L[temp]
+                L[temp]=0
+                temp=R[temp]
+    return [L, R]
 if __name__=='__main__':
-    main()
+    # main()
     #lo1 = '()()()()'
     #while lo1!=None:
     #    lo1=findNextLexicoOrder(list(lo1))
     #    if lo1!=None:
     #        print(lo1)
+    n=input('Enter a number:')
+    L, R = generateTree(int(n))
+    print(L)
+    print(R)
+    print('-----------------')
+    n=nextTree(L, R)
+    count=1
+    while n!=False:
+        L=n[0]
+        R=n[1]
+        print(L)
+        print(R)
+        print('-----------------')
+        n=nextTree(L, R)
+        count+=1
+    print(count)
+
